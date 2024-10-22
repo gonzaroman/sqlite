@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
 /**
  *
  * @author 6003262
@@ -65,15 +65,39 @@ public class Inicio {
         System.out.println(e.getMessage());
     }
 }
+    
+    
+    // Método para leer datos de la tabla "students"
+    public static void selectAll(){
+        String sql = "SELECT id, name, age FROM students";
+        
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id"));
+                System.out.println("Nombre: " + rs.getString("name"));
+                System.out.println("Edad: " + rs.getInt("age"));
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     
     
     public static void main(String[] args) {
         // TODO code application logic here
         createNewTable();
-        insert("pepe",7);
+       /* insert("pepe",7);
          insert("juan",27);
-          insert("lolo",35);
+          insert("lolo",35);*/
+       
+       selectAll();
+       
     }
     
 }
