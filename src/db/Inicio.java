@@ -69,7 +69,7 @@ public class Inicio {
     
     // Método para leer datos de la tabla "students"
     public static void selectAll(){
-        String sql = "SELECT id, name, age FROM students";
+        String sql = "SELECT url_principal,fecha_analisis FROM Analisis";
         
         try (Connection conn = connect();
              Statement stmt  = conn.createStatement();
@@ -77,26 +77,135 @@ public class Inicio {
             
             // Iterar sobre los resultados de la consulta
             while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("id"));
-                System.out.println("Nombre: " + rs.getString("name"));
-                System.out.println("Edad: " + rs.getInt("age"));
+               // System.out.println("ID: " + rs.getInt("id"));
+                System.out.print(" URL: " + rs.getString("url_principal"));
+                System.out.print(" fecha Analsis: " + rs.getTime("fecha_analisis"));
+                 System.out.println(" " + rs.getDate("fecha_analisis"));
                 System.out.println("----------------------------");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+    
+     // Método para leer datos de la tabla "students"
+    public static void dominios(){
+        String sql = "SELECT dominio FROM Analisis group by dominio";
+        System.out.println("DOMINIOS");
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+               // System.out.println("ID: " + rs.getInt("id"));
+                System.out.println(" URL: " + rs.getString("dominio"));
+                
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+  
+      // Método para leer datos de la tabla "students"
+    public static void selectDominio(String dominio){
+        String sql = "SELECT url_principal,fecha_analisis FROM Analisis where dominio='"+dominio+"' ";
+        System.out.println("Urls del dominio: "+dominio);
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+               // System.out.println("ID: " + rs.getInt("id"));
+               
+                System.out.print(" URL: " + rs.getString("url_principal"));
+                System.out.print(" fecha Analsis: " + rs.getTime("fecha_analisis"));
+                 System.out.println(" " + rs.getDate("fecha_analisis"));
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+     public static void selectIdAnalisisDominio(String dominio){
+        String sql = "SELECT id_analisis FROM Analisis where dominio='"+dominio+"' ";
+        System.out.println("ID Analisis de todas las urls del dominio: "+dominio);
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+               // System.out.println("ID: " + rs.getInt("id"));
+               
+                System.out.print(" id_analisis: " + rs.getString("id_analisis"));
+                
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+     
+    public static void selectIdAnalisisURL(String fecha) {
+        String sql = "SELECT id_analisis FROM Analisis where fecha_analisis='" + fecha + "' ";
+        System.out.println("ID Analisis de la url analizada en la fecha: " + fecha);
+        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+                // System.out.println("ID: " + rs.getInt("id"));
+
+                System.out.print(" id_analisis: " + rs.getString("id_analisis"));
+
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void selectEncabezadosID(String id) {
+        String sql = "SELECT * FROM Encabezados where id_analisis='" + id + "' ";
+        System.out.println("Todos los encabezados del ID Analisis: " + id);
+        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            // Iterar sobre los resultados de la consulta
+            while (rs.next()) {
+                // System.out.println("ID: " + rs.getInt("id"));
+
+                 System.out.print(" NIVEL " + rs.getString("nivel"));
+                System.out.print(" contenido: " + rs.getString("contenido"));
+                System.out.println(" Estado: "+rs.getString("estado")); 
+
+                System.out.println("----------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+  
+    
+    
     
     
     public static void main(String[] args) {
         // TODO code application logic here
-        createNewTable();
+    //    createNewTable();
        /* insert("pepe",7);
          insert("juan",27);
           insert("lolo",35);*/
        
        selectAll();
+       dominios();
+       selectDominio("iesaugustobriga.educarex.es");
+       selectDominio("www.snsmarketing.es");
+       selectIdAnalisisDominio("iesaugustobriga.educarex.es");
+       selectIdAnalisisURL("2024-10-29 11:57:44");
+        selectEncabezadosID("4");
        
     }
     
