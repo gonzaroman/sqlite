@@ -199,13 +199,13 @@ public class Inicio {
          insert("juan",27);
           insert("lolo",35);*/
        
-       selectAll();
-       dominios();
-       selectDominio("iesaugustobriga.educarex.es");
-       selectDominio("www.snsmarketing.es");
-       selectIdAnalisisDominio("iesaugustobriga.educarex.es");
-       selectIdAnalisisURL("2024-10-29 11:57:44");
-        selectEncabezadosID("4");
+       //selectAll();
+     //  dominios();
+      // selectDominio("iesaugustobriga.educarex.es");
+    //   selectDominio("www.snsmarketing.es");
+      // selectIdAnalisisDominio("iesaugustobriga.educarex.es");
+    //  selectIdAnalisisURL("2024-10-29 11:57:44");
+        selectEncabezadosID("1");
        
     }
     
